@@ -43,10 +43,10 @@ export function identity<T>(item?: T): T {
 // attempt applies the passed in function with the supplied arguments. If the
 // function throws an error, the error is being returned. If the function does
 // not throw an error, the result is being returned.
-export function attempt<T>(func: (...args: any[]) => T, ...args: any[]): T|Error {
+export function attempt<I, O>(func: (...args: I[]) => O, ...args: I[]): O {
   try {
     return func(...args);
-  } catch(err) {
+  } catch (err) {
     return err;
   }
 }
@@ -54,7 +54,7 @@ export function attempt<T>(func: (...args: any[]) => T, ...args: any[]): T|Error
 // ### constant
 // constant returns a function that returns a the passed in value.
 export function constant<T>(value: T): () => T {
-  return function() {
+  return function(): T {
     return value;
   }
 }
@@ -67,7 +67,7 @@ export function noop(...args: any[]): any {}
 // ### times
 // times invokes the passed in iteratee (2nd argument) n times. It returns an
 // array of results.
-export function times<T>(n: number, iteratee: (arg: number) => T) {
+export function times<T>(n: number, iteratee: (arg: number) => T): T[] {
   // If the fill function doesn't exist then implement it...
   return Array(n).fill().map((o, i) => iteratee(i));
 }
