@@ -2,21 +2,21 @@ import { expect } from "chai";
 import * as sinon from "sinon";
 import * as _ from "../src/01_intro";
 
-describe("01_intro", function () {
-  describe("addNumbers", function () {
-    it("should add two numbers", function () {
+describe("01_intro", () => {
+  describe("addNumbers", () => {
+    it("should add two numbers", () => {
       expect(_.addNumbers(1, 2)).to.be.equal(3);
     });
   });
 
-  describe("addStrings", function () {
-    it("should add two strings", function () {
+  describe("addStrings", () => {
+    it("should add two strings", () => {
       expect(_.addStrings("hello", "world")).to.be.equal("helloworld");
     });
   });
 
-  describe("identity", function () {
-    it("should return the first argument it receives", function () {
+  describe("identity", () => {
+    it("should return the first argument it receives", () => {
       expect(_.identity<number>(1)).to.be.equal(1);
       expect(_.identity<number>(2)).to.be.equal(2);
       expect(_.identity<string>('hello world')).to.be.equal('hello world');
