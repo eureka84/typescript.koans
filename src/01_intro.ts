@@ -35,7 +35,7 @@ export function addStrings(x: string, y: string): string {
 // This function can accept any type!
 // But it always returns something of the same type as what was provided.
 // Hint: Use a generic type (<T>).
-export function identity<T>(item?: T) {
+export function identity<T>(item?: T): T {
   return item;
 }
 
@@ -62,7 +62,7 @@ export function constant<T>(value: T): () => T {
 // ### noop
 // noop can be called with arbitrary arguments, it will always return
 // `undefined`.
-export function noop(...args) {}
+export function noop(...args: any[]): any {}
 
 // ### times
 // times invokes the passed in iteratee (2nd argument) n times. It returns an

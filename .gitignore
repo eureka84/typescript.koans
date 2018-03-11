@@ -12,3 +12,5 @@ lodash.d._ts
 dist/
 *.log
 .idea/
+typescript.koans.iml
+package-lock.json
