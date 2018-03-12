@@ -1,5 +1,4 @@
-import { expect } from "chai";
-import * as sinon from "sinon";
+import {expect} from "chai";
 import * as _ from "../src/02_array";
 
 describe("02_array", function () {

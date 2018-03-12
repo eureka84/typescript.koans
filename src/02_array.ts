@@ -21,7 +21,17 @@
  *  _.chunk(["a", "b", "c", "d"], 3) => [["a", "b", "c"], ["d"]]
  *  _.chunk(["a", "b", "c"]) => [["a"], ["b"], ["c"]]
  * */
-export function chunk() {
+export function chunk<T>(array: T[], chunkSize: number = 1): T[][] {
+  return array.reduce(
+      (acc: T[][], elem: T, index: number) => {
+          let currentChunkIndex = Math.floor(index/chunkSize);
+          let chunk = acc[currentChunkIndex] || [];
+          chunk.push(elem);
+          acc[currentChunkIndex] = chunk;
+          return acc;
+      },
+      []
+  );
 }
 
 /**
