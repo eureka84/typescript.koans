@@ -47,7 +47,8 @@ export function chunk<T>(array: T[], chunkSize: number = 1): T[][] {
  * _.compact([1, 0, 2, 0, 3]) => [1, 2, 3]
  * _.compact([1, undefined, NaN, null, 0, 2, 3]) => [1, 2, 3]
  */
-export function compact() {
+export function compact<T>(array: T[]): T[] {
+    return array.filter((value: T) => value);
 }
 
 /**
