@@ -63,6 +63,10 @@ export function head<T>(array: T[]): T {
     return array[0];
 }
 
+export function tail<T>(array: T[]): T[] {
+    return array.slice(1);
+}
+
 /**
  * ### initial
  * initial returns a slice of the passed in array, excluding its last item.
@@ -99,7 +103,10 @@ export function last<T>(array: T[]): T {
  * _.drop([1, 2, 3, 4]) => [2, 3, 4]
  */
 export function drop<T>(array: T[], elementsToDrop: number = 1): T[] {
-    return array.slice().splice(elementsToDrop, array.length - elementsToDrop);
+    if (elementsToDrop == 0) {
+        return array;
+    }
+    return drop(tail(array), elementsToDrop - 1);
 }
 
 /**
@@ -113,7 +120,10 @@ export function drop<T>(array: T[], elementsToDrop: number = 1): T[] {
  *
  */
 export function dropRight<T>(array: T[], elementsToDrop: number = 1): T[] {
-    return array.slice().splice(0, array.length - elementsToDrop);
+    if (elementsToDrop == 0) {
+        return array;
+    }
+    return dropRight(initial(array), elementsToDrop - 1);
 }
 
 interface DropWhilePredicate<T> {
