@@ -22,16 +22,16 @@
  *  _.chunk(["a", "b", "c"]) => [["a"], ["b"], ["c"]]
  * */
 export function chunk<T>(array: T[], chunkSize: number = 1): T[][] {
-  return array.reduce(
-      (acc: T[][], elem: T, index: number) => {
-          let currentChunkIndex = Math.floor(index/chunkSize);
-          let chunk = acc[currentChunkIndex] || [];
-          chunk.push(elem);
-          acc[currentChunkIndex] = chunk;
-          return acc;
-      },
-      []
-  );
+    return array.reduce(
+        (acc: T[][], elem: T, index: number) => {
+            let currentChunkIndex = Math.floor(index / chunkSize);
+            let chunk = acc[currentChunkIndex] || [];
+            chunk.push(elem);
+            acc[currentChunkIndex] = chunk;
+            return acc;
+        },
+        []
+    );
 }
 
 /**
@@ -72,7 +72,7 @@ export function head<T>(array: T[]): T {
  *
  */
 export function initial<T>(array: T[]): T[] {
-    return array.slice(0, array.length-1)
+    return array.slice(0, array.length - 1)
 }
 
 /**
@@ -85,7 +85,7 @@ export function initial<T>(array: T[]): T[] {
  *
  */
 export function last<T>(array: T[]): T {
-    return array[array.length-1];
+    return array[array.length - 1];
 }
 
 /**
@@ -98,7 +98,8 @@ export function last<T>(array: T[]): T {
  * _.drop([1, 2, 3, 4], 2) => [3, 4]
  * _.drop([1, 2, 3, 4]) => [2, 3, 4]
  */
-export function drop() {
+export function drop<T>(array: T[], elementsToDrop: number = 1): T[] {
+    return array.slice().splice(elementsToDrop, array.length - elementsToDrop);
 }
 
 /**
@@ -111,22 +112,29 @@ export function drop() {
  * _.dropRight([1, 2, 3, 4]) => [1, 2, 3]
  *
  */
-export function dropRight() {
+export function dropRight<T>(array: T[], elementsToDrop: number = 1): T[] {
+    return array.slice().splice(0, array.length - elementsToDrop);
 }
 
 interface DropWhilePredicate<T> {
-  (value?: T, index?: number, collection?: Array<T>): boolean;
+    (value?: T, index?: number, collection?: Array<T>): boolean;
 }
+
 /**
-* ### dropWhile
-* dropWhile works similar to drop. It removes items from the beginning of the
-* array until the predicate returns false.
-*
-* ## Examples
-* _.dropWhile([1, 2, 3, 4, 5, 1], value => value < 3) => [3, 4, 5, 1]
-*
-*/
-export function dropWhile<T>(collection: Array<T>, predicate: DropWhilePredicate<T>): Array<T> {
+ * ### dropWhile
+ * dropWhile works similar to drop. It removes items from the beginning of the
+ * array until the predicate returns false.
+ *
+ * ## Examples
+ * _.dropWhile([1, 2, 3, 4, 5, 1], value => value < 3) => [3, 4, 5, 1]
+ *
+ */
+export function dropWhile<T>(array: Array<T>, predicate: DropWhilePredicate<T>): Array<T> {
+    if (predicate(head(array))){
+        return dropWhile(array.slice(1), predicate);
+    } else {
+        return array;
+    }
 }
 
 /**
@@ -138,7 +146,8 @@ export function dropWhile<T>(collection: Array<T>, predicate: DropWhilePredicate
  * _.dropRightWhile([5, 4, 3, 2, 1], value => value < 3) => [5, 4, 3]
  *
  */
-export function dropRightWhile() {
+export function dropRightWhile<T>(array: T[], predicate: DropWhilePredicate<T>): T[] {
+    return dropWhile(array.reverse(), predicate).reverse();
 }
 
 /**
