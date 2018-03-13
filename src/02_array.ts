@@ -142,9 +142,8 @@ interface DropWhilePredicate<T> {
 export function dropWhile<T>(array: Array<T>, predicate: DropWhilePredicate<T>): Array<T> {
     if (predicate(head(array))){
         return dropWhile(array.slice(1), predicate);
-    } else {
-        return array;
     }
+    return array;
 }
 
 /**
@@ -157,7 +156,10 @@ export function dropWhile<T>(array: Array<T>, predicate: DropWhilePredicate<T>):
  *
  */
 export function dropRightWhile<T>(array: T[], predicate: DropWhilePredicate<T>): T[] {
-    return dropWhile(array.reverse(), predicate).reverse();
+    if (predicate(last(array))){
+        return dropRightWhile(initial(array), predicate);
+    }
+    return array;
 }
 
 /**
